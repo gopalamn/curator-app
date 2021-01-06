@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 
-app = Flask(__name__)
+test = Blueprint('test', __name__)
 
-@app.route('/getmsg/', methods=['GET'])
+@test.route('/getmsg/', methods=['GET'])
 def respond():
     # Retrieve the name from url parameter
     name = request.args.get("name", None)
@@ -25,7 +25,7 @@ def respond():
     # Return the response in json format
     return jsonify(response)
 
-@app.route('/post/', methods=['POST'])
+@test.route('/post/', methods=['POST'])
 def post_something():
     param = request.form.get('name')
     print(param)
@@ -42,10 +42,6 @@ def post_something():
         })
 
 # A welcome message to test our server
-@app.route('/')
+@test.route('/')
 def index():
     return "<h1>Welcome to our server !!</h1>"
-
-if __name__ == '__main__':
-    # Threaded option to enable multiple instances for multiple user access support
-    app.run(threaded=True, port=5000)
