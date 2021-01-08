@@ -1,5 +1,6 @@
 from .test import test
 from .users import users
+from .individual_books import individual_books
 from app.models.models import User
 from app.models.schema import UserSchema
 from flask_jwt import JWT
@@ -10,6 +11,7 @@ def init_app(app):
     jwt.init_app(app)
     app.register_blueprint(test)
     app.register_blueprint(users)
+    app.register_blueprint(individual_books)
 
 def authenticate(email, password):
     user = User.query.filter_by(email=email).first()

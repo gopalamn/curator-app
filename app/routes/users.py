@@ -82,8 +82,8 @@ def add_user():
         abort(400)
 
     # Make sure the username is unique
-    user_with_username = User.query.filter_by(username=username).first()
-    if user_with_username:
+    exists = username_exists(username)
+    if exists:
         abort(404)
     
     # Store secure password
@@ -100,3 +100,46 @@ def add_user():
     db.session.refresh(new_user)
 
     return Response(status=201)
+
+# Uploads profile pic to S3 bucket
+@users.route('/api/set_profile_pic/', methods=['POST'])
+@jwt_required()
+def set_profile_pic():
+    allowed_types = ['image/png', 'image/jpeg', 'image/gif']
+    if request.files['profile_pic'].content_type not in allowed_types:
+        abort(400)
+    
+    user = current_identity
+    key = str(user.user_id)
+    if user.profile_pic:
+        s3.delete_object(Bucket='curatorapp', Key=str(user.user_id))
+    
+    s3.upload_fileobj(request.files['profile_pic'], 'curatorapp', key,
+                      ExtraArgs={'ACL':'public-read', 'ContentType': request.files['profile_pic'].content_type})
+    url = "https://s3-%s.amasonaws.com/%s/%s" % ('us-east-2', 'curatorapp', key)
+
+    user.profile_pic = url
+    db.session.commit()
+
+    return jsonify({'profile_pic': url}), 201
+
+# Securely reset password
+# Requires jwt session, old password, and new password
+@users.route('/api/set_password/', methods=['PUT'])
+@jwt_required()
+def set_password():
+    old_password = request.json.get('old_password')
+    new_password = request.json.get('new_password')
+    if not old_password or not new_password:
+        abort(400)
+    
+    user = current_identity
+    if not bcrypt.checkpw(old_password.encode('utf8'), user.password_hash.encode('utf8')):
+        abort(401)
+    
+    hashed_new_pwd = bcrypt.hashpw(new_password.encode('utf8'), bcrypt.gensalt())
+    user.password_hash = hashed_new_pwd
+    db.session.commit()
+
+    return Response(status=200)
+    
