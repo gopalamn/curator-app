@@ -82,8 +82,9 @@ def add_user():
         abort(400)
 
     # Make sure the username is unique
-    exists = username_exists(username)
-    if exists:
+    user_exists = username_exists(username)
+    email_exists = email_exists(email)
+    if user_exists or email_exists:
         abort(404)
     
     # Store secure password
