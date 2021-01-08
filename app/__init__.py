@@ -4,11 +4,13 @@ import sys
 import logging
 
 def create_app():
-    from . import routes
+    from . import routes, models
+
     app = Flask(__name__)
     app.config.from_object('config')
 
     routes.init_app(app)
+    models.init_app(app)
 
     CORS(app)
 

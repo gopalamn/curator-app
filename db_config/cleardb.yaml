@@ -1,0 +1,4 @@
+mysql_host: 'us-cdbr-east-02.cleardb.com'
+mysql_user: 'b2e1b3e32f67b4'
+mysql_password: 'd4899cf0'
+mysql_db: 'heroku_61e6a4b43be6e62'
