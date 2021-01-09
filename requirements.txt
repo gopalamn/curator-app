@@ -44,7 +44,6 @@ cycler==0.10.0
 Cython==0.26
 cytoolz==0.8.2
 dask==0.15.1
-datashape==0.5.4
 decorator==4.1.2
 distlib==0.3.1
 distributed==1.18.0
