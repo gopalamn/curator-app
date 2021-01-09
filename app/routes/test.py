@@ -44,4 +44,4 @@ def post_something():
 # A welcome message to test our server
 @test.route('/')
 def index():
-    return "<h1>Welcome to the mysterious \u1F62F backend of curator-app</h1>"
+    return "<h1>Welcome to the mysterious 😯 backend of curator-app</h1>"
