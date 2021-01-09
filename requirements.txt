@@ -131,7 +131,6 @@ numexpr==2.6.2
 numpy==1.13.1
 numpydoc==0.7.0
 olefile==0.44
-openpyxl==2.5.0a2
 packaging==20.4
 pandas==0.20.3
 pandocfilters==1.4.1
