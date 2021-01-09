@@ -26,7 +26,7 @@ google_api_key = os.environ['GOOGLE_API_KEY']
 #     ]
 # }
 @individual_books.route('/api/new_individual_book/', methods=['POST'])
-# @jwt_required()
+@jwt_required()
 def add_individual_books():
     books = request.json.get('books')
 
@@ -36,7 +36,7 @@ def add_individual_books():
     for book in books:
         
         #Check if book already exists for current user
-        exists = Individual_Book_Posts.query.filter_by(user_id=1).filter_by(book_api_id=book['book_api_id']).first()
+        exists = Individual_Book_Posts.query.filter_by(user_id=current_identity.user_id).filter_by(book_api_id=book['book_api_id']).first()
         if exists:
             continue
 
@@ -45,7 +45,7 @@ def add_individual_books():
                                         cover_img=book['cover_img'],
                                         link=book['link'],
                                         created_time=datetime.datetime.utcnow(),
-                                        user_id=1)
+                                        user_id=current_identity.user_id)
         db.session.add(created)
         db.session.commit()
         db.session.refresh(created)
