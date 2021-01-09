@@ -119,7 +119,6 @@ msgpack-python==0.4.8
 multipledispatch==0.4.9
 mysql-connector-python==8.0.22
 mysqlclient==2.0.3
-navigator-updater==0.1.0
 nbconvert==5.2.1
 nbformat==4.3.0
 networkx==1.11
