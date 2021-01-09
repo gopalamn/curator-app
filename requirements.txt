@@ -105,7 +105,6 @@ lockfile==0.12.2
 lxml==3.8.0
 Mako==1.0.7
 Markdown==2.6.8
-MarkupSafe==1.0
 marshmallow==3.10.0
 marshmallow-sqlalchemy==0.24.1
 matplotlib==2.0.2
