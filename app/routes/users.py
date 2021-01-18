@@ -62,10 +62,10 @@ def check_email():
 # Returns json of user object
 @users.route('/api/get_user/', methods=['GET'])
 def get_user():
-    user_id = request.args.get('user_id')
-    if not user_id:
+    username = request.args.get('username')
+    if not username:
         abort(400)
-    user = User.query.get(user_id)
+    user = User.query.filter_by(username=username).first()
     user_schema = UserSchema()
     return user_schema.jsonify(user)
 
@@ -143,4 +143,3 @@ def set_password():
     db.session.commit()
 
     return Response(status=200)
-    
