@@ -43,8 +43,6 @@ def email_exists(email):
     
     return False
 
-
-
 # Check if an email is already associated with a user
 # Returns true if there's an existing user with the email
 # and false otherwise
@@ -82,9 +80,9 @@ def add_user():
         abort(400)
 
     # Make sure the username is unique
-    user_exists = username_exists(username)
-    email_exists = email_exists(email)
-    if user_exists or email_exists:
+    userExists = username_exists(username)
+    emailExists = email_exists(email)
+    if userExists or emailExists:
         abort(404)
     
     # Store secure password

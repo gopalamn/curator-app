@@ -32,5 +32,7 @@ def customized_response_handler(access_token, identity):
         'user_id': identity.user_id,
         'username': identity.username,
         'email': identity.email,
-        'profile_pic': identity.profile_pic
+        'profile_pic': identity.profile_pic,
+        'firstname': identity.firstname,
+        'lastname': identity.lastname
     })
