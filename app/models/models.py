@@ -42,3 +42,14 @@ class Individual_Book_Posts(db.Model):
     cover_img = db.Column(db.Text)
     link = db.Column(db.Text)
     created_time = db.Column(db.DateTime, nullable=False)
+
+class Link_Posts(db.Model):
+    __tablename__ = 'link_posts'
+
+    link_post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.ForeignKey('users.user_id', ondelete='CASCADE', onupdate='CASCADE'), index=True)
+    link = db.Column(db.Text)
+    img = db.Column(db.Text)
+    description = db.Column(db.Text)
+    title = db.Column(db.Text)
+    created_time = db.Column(db.DateTime, nullable=False)

@@ -23,3 +23,15 @@ created_time datetime not null,
 primary key(book_post_id),
 foreign key(user_id) references users(user_id) on update cascade on delete cascade
 )Engine=Innodb default charset utf8;
+
+create table link_posts (
+link_post_id integer not null auto_increment,
+user_id integer not null,
+link text,
+img text,
+description text,
+title text,
+created_time datetime not null,
+primary key(link_post_id),
+foreign key(user_id) references users(user_id) on update cascade on delete cascade
+)Engine=Innodb default charset utf8;

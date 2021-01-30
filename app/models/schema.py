@@ -13,3 +13,11 @@ class IndividualBookPostSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
     
     user = ma.Nested(UserSchema)
+
+class LinkPostSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Link_Posts
+        #Include foreign keys
+        include_fk = True
+
+    user = ma.Nested(UserSchema)
