@@ -21,16 +21,18 @@ link_posts = Blueprint('link_posts', __name__)
 @link_posts.route('/api/new_link_post/', methods=['POST'])
 @jwt_required()
 def add_link_posts():
-    link = request.json.get("link")
-    title = request.json.get("title")
-    img = request.json.get("img")
-    description = request.json.get("description")
+    linkObj = request.json.get("linkObj")
 
-    if not link:
+    if not linkObj:
         abort(400)
-            
+    
+    link = linkObj['link']
+    title = linkObj['title']
+    img = linkObj['img']
+    description = linkObj['description']
+
     #Check if link already exists for current user current_identity.user_id
-    exists = Link_Posts.query.filter_by(user_id=1).filter_by(link=link).first()
+    exists = Link_Posts.query.filter_by(user_id=current_identity.user_id).filter_by(link=link).first()
     if exists:
         return Response(status=200)
 
@@ -39,7 +41,7 @@ def add_link_posts():
                          img=img,
                          description=description,
                          created_time=datetime.datetime.utcnow(),
-                         user_id=1)
+                         user_id=current_identity.user_id)
     db.session.add(created)
     db.session.commit()
     db.session.refresh(created)
@@ -68,7 +70,7 @@ def delete_user_link():
     if not link_post_id:
         abort(400)
 
-    link = Link_Posts.query.filter_by(link_post_id=link_post_id).filter_by(user_id=1).first()
+    link = Link_Posts.query.filter_by(link_post_id=link_post_id).filter_by(user_id=current_identity.user_id).first()
     if not link:
         return abort(404)
 
