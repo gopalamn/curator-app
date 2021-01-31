@@ -30,6 +30,7 @@ def add_link_posts():
     title = linkObj['title']
     img = linkObj['img']
     description = linkObj['description']
+    hostname = linkObj['hostname']
 
     #Check if link already exists for current user current_identity.user_id
     exists = Link_Posts.query.filter_by(user_id=current_identity.user_id).filter_by(link=link).first()
@@ -41,7 +42,9 @@ def add_link_posts():
                          img=img,
                          description=description,
                          created_time=datetime.datetime.utcnow(),
-                         user_id=current_identity.user_id)
+                         user_id=current_identity.user_id,
+                         hostname=hostname
+                         )
     db.session.add(created)
     db.session.commit()
     db.session.refresh(created)

@@ -53,3 +53,4 @@ class Link_Posts(db.Model):
     description = db.Column(db.Text)
     title = db.Column(db.Text)
     created_time = db.Column(db.DateTime, nullable=False)
+    hostname = db.Column(db.Text)
