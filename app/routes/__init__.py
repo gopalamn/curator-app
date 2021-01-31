@@ -1,6 +1,7 @@
 from .users import users
 from .individual_books import individual_books
 from .link_posts import link_posts
+from .scraper import scraper
 from app.models.models import User
 from app.models.schema import UserSchema
 from flask_jwt import JWT
@@ -12,6 +13,7 @@ def init_app(app):
     app.register_blueprint(users)
     app.register_blueprint(individual_books)
     app.register_blueprint(link_posts)
+    app.register_blueprint(scraper)
 
 def authenticate(email, password):
     user = User.query.filter_by(email=email).first()
